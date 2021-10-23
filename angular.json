@@ -83,7 +83,12 @@
             "tsConfig": "apps/app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["apps/app/src/favicon.ico", "apps/app/src/assets"],
-            "styles": ["apps/app/src/styles.scss"],
+            "styles": [
+              "node_modules/normalize.css/normalize.css",
+              "node_modules/flexboxgrid/css/flexboxgrid.min.css",
+              "node_modules/@space-css/space-css/space.css",
+              "apps/app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -182,6 +187,31 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "auth": {
+      "projectType": "library",
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "prefix": "blog",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth"],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/src/**/*.ts",
+              "libs/auth/src/**/*.html"
+            ]
           }
         }
       }

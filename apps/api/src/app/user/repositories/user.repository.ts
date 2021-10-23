@@ -30,10 +30,10 @@ export class UserRepository extends Repository<UserEntity> {
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 10),
       });
-
+      await user.save();
       return user;
     } catch (e) {
-      throw new ConflictException();
+      throw new ConflictException(e.message);
     }
   }
 }

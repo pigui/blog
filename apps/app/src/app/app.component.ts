@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Message } from '@blog/api-interfaces';
+import { DisplayMode, ValdemortConfig } from 'ngx-valdemort';
 
 @Component({
   selector: 'blog-root',
@@ -8,6 +7,8 @@ import { Message } from '@blog/api-interfaces';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
-  constructor(private http: HttpClient) {}
+  constructor(valdemortConfig: ValdemortConfig) {
+    valdemortConfig.displayMode = DisplayMode.ONE;
+    valdemortConfig.shouldDisplayErrors = () => true;
+  }
 }
