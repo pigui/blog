@@ -6,9 +6,19 @@ import { HttpClient } from '@angular/common/http';
 
 import * as AuthActions from './auth.actions';
 import * as AuthFeature from './auth.reducer';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
-import { UserEntity } from './auth.models';
+import { AccessToken, UserEntity } from './auth.models';
+import { startLoader, stopLoader } from '@blog/loader';
+
+const START_LOADER = [AuthActions.register, AuthActions.login];
+
+const STOP_LOADER = [
+  AuthActions.registerFailure,
+  AuthActions.registerSuccess,
+  AuthActions.loginFailure,
+  AuthActions.loginSuccess,
+];
 
 @Injectable()
 export class AuthEffects {
@@ -26,7 +36,10 @@ export class AuthEffects {
             .post<UserEntity>(`${this.apiUrl}user`, action.request)
             .pipe(
               map((payload: UserEntity) =>
-                AuthActions.registerSuccess({ payload })
+                AuthActions.registerSuccess({
+                  payload,
+                  request: action.request,
+                })
               )
             );
         },
@@ -34,6 +47,40 @@ export class AuthEffects {
           return AuthActions.registerFailure();
         },
       })
+    )
+  );
+
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.login, AuthActions.registerSuccess),
+      fetch({
+        run: (action) => {
+          return this.http
+            .post<AccessToken>(`${this.apiUrl}auth`, action.request)
+            .pipe(
+              map((payload: AccessToken) =>
+                AuthActions.loginSuccess({ payload })
+              )
+            );
+        },
+        onError: (action, error) => {
+          return AuthActions.loginFailure();
+        },
+      })
+    )
+  );
+
+  startLoader$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(...START_LOADER),
+      map(() => startLoader())
+    )
+  );
+
+  stopLoader$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(...STOP_LOADER),
+      map(() => stopLoader())
     )
   );
 }

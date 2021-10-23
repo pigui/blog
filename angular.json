@@ -215,6 +215,31 @@
           }
         }
       }
+    },
+    "loader": {
+      "projectType": "library",
+      "root": "libs/loader",
+      "sourceRoot": "libs/loader/src",
+      "prefix": "blog",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/loader"],
+          "options": {
+            "jestConfig": "libs/loader/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/loader/src/**/*.ts",
+              "libs/loader/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

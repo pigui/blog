@@ -7,3 +7,8 @@ export const getAuthState = createFeatureSelector<State>(AUTH_FEATURE_KEY);
 export const getIsAuth = createSelector(getAuthState, (state) => state.isAuth);
 
 export const getUser = createSelector(getAuthState, (state) => state.user);
+
+export const getAccessToken = createSelector(
+  getAuthState,
+  (state) => state.accessToken
+);

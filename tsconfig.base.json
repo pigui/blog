@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@blog/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@blog/auth": ["libs/auth/src/index.ts"]
+      "@blog/auth": ["libs/auth/src/index.ts"],
+      "@blog/loader": ["libs/loader/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

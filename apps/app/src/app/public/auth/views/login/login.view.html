@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div class="row center-xs middle-xs sp-h-100">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="col-xs-12 sp-h-50">
+      <mat-card-content>
+        <mat-form-field class="sp-w-80" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email" />
+          <mat-error>
+            <val-errors controlName="email">
+              <ng-template valError="required"
+                >The email is required</ng-template
+              >
+              <ng-template valError="email"
+                >The email must be a valid email address</ng-template
+              >
+            </val-errors>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="sp-w-80" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" />
+          <mat-error>
+            <val-errors controlName="password">
+              <ng-template valError="required"
+                >The password is required</ng-template
+              >
+            </val-errors></mat-error
+          >
+        </mat-form-field>
+        <div class="row center-xs middle-xs p-h-20">
+          <div class="col-xs-6">
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              class="sp-w-50"
+            >
+              Login
+            </button>
+          </div>
+          <div class="col-xs-6">
+            <button
+              mat-flat-button
+              color="secondary"
+              type="button"
+              class="sp-w-50"
+              routerLink="/public/register"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

@@ -16,3 +16,13 @@ export interface Register {
   firstName: string;
   lastName: string;
 }
+
+export interface Login {
+  email: string;
+  password: string;
+}
+
+export interface AccessToken {
+  accessToken: string;
+  user: UserEntity;
+}

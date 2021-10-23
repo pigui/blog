@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -10,8 +10,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthModule as AuthStoreModule } from '@blog/auth';
+import { LoaderModule as LoaderStoreModule } from '@blog/loader';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ValdemortModule } from 'ngx-valdemort';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { ValdemortModule } from 'ngx-valdemort';
     CustomFormsModule,
     AppRoutingModule,
     ValdemortModule,
+    NgxSpinnerModule,
     StoreModule.forRoot(
       {},
       {
@@ -35,8 +38,10 @@ import { ValdemortModule } from 'ngx-valdemort';
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AuthStoreModule.forRoot(environment.apiUrl),
+    LoaderStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
