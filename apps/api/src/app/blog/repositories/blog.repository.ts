@@ -13,9 +13,7 @@ export class BlogRepository extends Repository<BlogEntity> {
     newBlog: CreatedBlogDto,
     user: UserEntity
   ): Promise<BlogEntity> {
-    console.log(user);
     const blog = this.create({ ...newBlog, user: user });
-    console.log(blog);
     await blog.save();
     return blog;
   }

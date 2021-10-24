@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 import * as HomeActions from './home.actions';
 import * as HomeFeature from './home.reducer';
-import { map } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { BlogEntity } from './home.models';
 import { startLoader, stopLoader } from '@blog/loader';
 
@@ -43,14 +43,11 @@ export class HomeEffects {
   createBlog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(HomeActions.createBlog),
-      fetch({
-        run: (action) => {
-          return this.http
-            .post<BlogEntity>(`${this.apiUrl}blog`, action.request)
-            .pipe(map((payload) => HomeActions.createBlogSuccess({ payload })));
-        },
-        onError: () => HomeActions.createBlogFailure(),
-      })
+      switchMap((action) =>
+        this.http
+          .post<BlogEntity>(`${this.apiUrl}blog`, action.request)
+          .pipe(map((payload) => HomeActions.createBlogSuccess({ payload })))
+      )
     )
   );
 
