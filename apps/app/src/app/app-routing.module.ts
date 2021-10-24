@@ -4,13 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'public',
-    pathMatch: 'full',
+    loadChildren: () =>
+      import('./public/public.module').then((m) => m.PublicModule),
   },
   {
-    path: 'public',
+    path: '',
     loadChildren: () =>
-      import('./public/auth/auth.module').then((m) => m.AuthModule),
+      import('./private/private.module').then((m) => m.PrivateModule),
   },
 ];
 

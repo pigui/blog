@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeView } from './views/home/home.view';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'public',
-    pathMatch: 'full',
-  },
-  {
-    path: 'public',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    component: HomeView,
   },
 ];
 
@@ -17,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PublicRoutingModule {}
+export class HomeRoutingModule {}
