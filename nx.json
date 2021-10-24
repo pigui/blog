@@ -43,6 +43,9 @@
     "auth": {
       "tags": []
     },
+    "home": {
+      "tags": []
+    },
     "loader": {
       "tags": []
     }

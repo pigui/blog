@@ -21,9 +21,6 @@ export class BlogEntity extends BaseEntity {
   @Column()
   text: string;
 
-  @Column()
-  password: string;
-
   @CreateDateColumn()
   createdAt: Date;
 

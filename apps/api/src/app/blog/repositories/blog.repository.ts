@@ -6,17 +6,16 @@ import { BlogEntity } from '../entities/blog.entity';
 @EntityRepository(BlogEntity)
 export class BlogRepository extends Repository<BlogEntity> {
   async orderByCreatedAt(): Promise<BlogEntity[]> {
-    return await this.createQueryBuilder('blog')
-      .orderBy('blog.createdAt')
-      .relation('user')
-      .execute();
+    return await this.createQueryBuilder('blog').getMany();
   }
 
   async saveBlog(
     newBlog: CreatedBlogDto,
     user: UserEntity
   ): Promise<BlogEntity> {
-    const blog = this.create({ ...newBlog, user });
+    console.log(user);
+    const blog = this.create({ ...newBlog, user: user });
+    console.log(blog);
     await blog.save();
     return blog;
   }

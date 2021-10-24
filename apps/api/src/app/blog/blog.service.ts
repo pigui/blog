@@ -17,7 +17,7 @@ export class BlogService {
   }
 
   orderByCreatedAt(): Observable<BlogEntity[]> {
-    return from(this.blogRepository.orderByCreatedAt());
+    return from(this.blogRepository.find());
   }
 
   save(

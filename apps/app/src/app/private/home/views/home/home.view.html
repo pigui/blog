@@ -1,1 +1,52 @@
-<p>home works!</p>
+<div class="row center-xs middle-xs">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="col-xs-12 sp-h-50">
+      <mat-card-content>
+        <mat-form-field class="sp-w-80" appearance="fill">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput formControlName="title" />
+          <mat-error>
+            <val-errors controlName="title">
+              <ng-template valError="required"
+                >The title is required</ng-template
+              >
+            </val-errors>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="sp-w-80" appearance="fill">
+          <mat-label>Text</mat-label>
+          <textarea matInput formControlName="text"></textarea>
+          <mat-error>
+            <val-errors controlName="text">
+              <ng-template valError="required"
+                >The text is required</ng-template
+              >
+            </val-errors>
+          </mat-error>
+        </mat-form-field>
+        <div class="row center-xs middle-xs p-h-20">
+          <div class="col-xs-6">
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              class="sp-w-50"
+            >
+              Post
+            </button>
+          </div>
+        </div>
+      </mat-card-content></mat-card
+    >
+  </form>
+</div>
+
+<div style="margin-top: 30px" class="row center-xs middle-xs">
+  <ng-container *ngFor="let blog of (homeFacade.allHome$ | async)">
+    <mat-card class="col-xs-12 sp-w-80 sp-h-30">
+      <mat-card-header>{{ blog.title}}</mat-card-header>
+      <mat-card-content> {{ blog.text}} </mat-card-content>
+      <mat-card-footer>{{ blog.createdAt | date}}</mat-card-footer>
+    </mat-card>
+  </ng-container>
+</div>

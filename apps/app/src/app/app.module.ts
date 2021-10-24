@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,6 +14,8 @@ import { LoaderModule as LoaderStoreModule } from '@blog/loader';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ValdemortModule } from 'ngx-valdemort';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AuthService } from './interceptors/auth.service';
+import { multicast } from 'rxjs';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HomeFacade } from '@blog/home';
 
 @Component({
   selector: 'blog-home',
@@ -7,7 +9,20 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeView implements OnInit {
-  constructor() {}
+  form: FormGroup = this.fb.group({
+    title: ['', [Validators.required]],
+    text: ['', [Validators.required]],
+  });
+  constructor(public homeFacade: HomeFacade, private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.homeFacade.init();
+  }
+
+  onSubmit(): void {
+    if (!this.form.valid) {
+      return;
+    }
+    this.homeFacade.createBlog(this.form.getRawValue());
+  }
 }
