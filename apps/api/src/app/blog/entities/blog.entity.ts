@@ -4,25 +4,22 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { BlogEntity } from '../../blog/entities/blog.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
-@Entity({ name: 'users' })
-export class UserEntity extends BaseEntity {
+@Entity({ name: 'blogs' })
+export class BlogEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  firstName: string;
+  title: string;
 
   @Column()
-  lastName: string;
-
-  @Column({ unique: true })
-  email: string;
+  text: string;
 
   @Column()
   password: string;
@@ -36,6 +33,6 @@ export class UserEntity extends BaseEntity {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => BlogEntity, (blog) => blog.user, { lazy: true })
-  blogs: BlogEntity[];
+  @ManyToOne(() => UserEntity, (user) => user.blogs, { lazy: true })
+  user: UserEntity;
 }
